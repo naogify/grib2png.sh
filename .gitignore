@@ -1,3 +1,4 @@
 *.bin
 *.grib2
 *.png
+*.aux.xml
