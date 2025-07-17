@@ -1,12 +1,18 @@
 # grib2uv2png.sh & grib2info.sh
 
 GRIB2形式の気象データを、  
-**「どんなパラメータが入っているかを調べる」→「U/Vベクトル成分をPNG画像に変換」**  
+**「どんなパラメータが入っているかを調べる」→「U/Vベクトル成分をRGBエンコードしたPNG画像に変換」**  
 という一連の流れを**体験できるシンプルなツールセット**です。
 
 - **必要なのはDockerのみ**（wgrib2/gdalのインストール不要）
 - 開発・解析・プロトタイピング時に、最短で「データ内容把握→画像出力」が可能
 
+
+## RGBエンコードした PNG画像の仕様
+-  [weatherlayers-gl公式ドキュメント](https://docs.weatherlayers.com/weatherlayers-gl/data-sources#supported-data-types) および [データフォーマット](https://docs.weatherlayers.com/weatherlayers-gl/data-sources#supported-data-formats) で提示されている仕様に沿って 値をRGBエンコードします。
+-  概要
+    - **RチャンネルにU成分、GチャンネルにV成分**を割り当てています。
+    - データが存在しない部分は**Aチャンネル（アルファ）を0**にしています。
 
 ## 必須環境
 
@@ -34,13 +40,13 @@ chmod +x grib2info.sh grib2uv2png.sh
 
 ### 2. GRIB2ファイルの中身を確認（**まずはここから！**）
 
-以下を実行して [気象庁「全球数値予報モデルGPV (GSM全球域)」](https://www.data.jma.go.jp/developer/gpv_sample.html) のサンプルデータをダウンロードしてください。
+操作に慣れるために、サンプルデータをダウンロードして触っていきます。
+以下を実行して [気象庁「全球数値予報モデルGPV (GSM全球域)」](https://www.data.jma.go.jp/developer/gpv_sample.html) をダウンロードしてください。
 ```
 curl https://gist.githubusercontent.com/naogify/89ca1d7d303ecf0ee7722218f04944a7/raw/8635c95e9242310d0969b7cbacbf00364e3c3ffb/download-jms-gpv-sample-data.sh | bash
 ```
 
-GRIB2ファイル（例: `jms-sample.grib2`）の中に  
-**どんなパラメータが入っているか**を一覧で表示します。
+以下を実行して GRIB2ファイル（例: `jms-sample.grib2`）の中に **どんなパラメータが入っているか**を一覧で表示します。
 
 ```sh
 ./grib2info.sh jms-sample.grib2
@@ -55,8 +61,8 @@ GRIB2ファイル（例: `jms-sample.grib2`）の中に
 ...
 ```
 
-- **「:UGRD:10 m above ground:」**や**「:VGRD:10 m above ground:」**が「U/V成分」です  
-- これらの**パラメータ名をそのままコピーして、次のステップで使います**
+- **「:UGRD:10 m above ground:」**や**「:VGRD:10 m above ground:」**が地上10mの風の「U/V成分」です  
+- これらの**パラメータ名をそのままコピーして、次のステップで使います**　（他の高さや風以外のベクトルデータでも試せます）
 
 ---
 
