@@ -1,6 +1,6 @@
-# grib2uv2png.sh & grib2info.sh
+# grib2 to RGB Encode PNG tools
 
-GRIB2形式の気象データを、  
+GRIB2形式のベクトルデータ（気象等）を、  
 **「どんなパラメータが入っているかを調べる」→「U/Vベクトル成分をRGBエンコードしたPNG画像に変換」**  
 という一連の流れを**体験できるシンプルなツールセット**です。
 
@@ -82,11 +82,11 @@ curl https://gist.githubusercontent.com/naogify/89ca1d7d303ecf0ee7722218f04944a7
 
 #### 補足：元データの値域が異なる場合
 
-例えば元データが0〜50の値域なら、  
-`-scale 0 50` オプションでPNGへのマッピング範囲を変えられます。
+例えば元データが -128 ~ 127 の値域なら、  
+`-scale -128 127` オプションでPNGへのマッピング範囲を変えられます。
 
 ```sh
-./grib2uv2png.sh jms-sample.grib2 -o wind.png -u ":UGRD:10 m above ground:" -v ":VGRD:10 m above ground:" -scale 0 50
+./grib2uv2png.sh jms-sample.grib2 -o wind.png -u ":UGRD:10 m above ground:" -v ":VGRD:10 m above ground:" -scale -128 127
 ```
 - 出力画像のピクセル値は自動的に0〜255（PNG 8bit）にリスケールされます
 
@@ -103,11 +103,6 @@ curl https://gist.githubusercontent.com/naogify/89ca1d7d303ecf0ee7722218f04944a7
 
 - [ghcr.io/geolonia/docker-wgrib2:latest](https://github.com/geolonia/docker-wgrib2)
 - [osgeo/gdal:alpine](https://hub.docker.com/r/osgeo/gdal/tags)
-
-
-## ライセンス・クレジット
-
-- 本ツールは [wgrib2公式](https://www.cpc.ncep.noaa.gov/products/wesley/wgrib2/) および [GDAL公式](https://gdal.org/) を利用しています。
 
 
 ## コントリビュート・バグ報告
