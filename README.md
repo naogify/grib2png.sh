@@ -94,15 +94,12 @@ curl https://gist.githubusercontent.com/naogify/89ca1d7d303ecf0ee7722218f04944a7
 
 ## 出力イメージ例
 
+![wind_data.png](https://github.com/naogify/jma-wind-map/blob/main/public/wind_data.png)  
+出展: [気象庁「全球数値予報モデルGPV (GSM全球域)」](https://www.data.jma.go.jp/developer/gpv_sample.html) を加工して作成
+
 - **Rバンド（赤）** … U成分
 - **Gバンド（緑）＆Bバンド（青）** … V成分（GとBは同じ）
 - GISツールや画像ビューアで地理的な分布や強度を直感的に確認できます
-
-
-## 依存Dockerイメージ
-
-- [ghcr.io/geolonia/docker-wgrib2:latest](https://github.com/geolonia/docker-wgrib2)
-- [osgeo/gdal:alpine](https://hub.docker.com/r/osgeo/gdal/tags)
 
 
 ## コントリビュート・バグ報告
