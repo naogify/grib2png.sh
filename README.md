@@ -25,8 +25,8 @@ GRIB2形式の気象データを、
 ### 1. ツールのダウンロード＆準備
 
 ```sh
-curl -O https://raw.githubusercontent.com/your/repository/main/grib2info.sh
-curl -O https://raw.githubusercontent.com/your/repository/main/grib2uv2png.sh
+curl -O https://raw.githubusercontent.com/naogify/grib2png.sh/main/grib2info.sh
+curl -O https://raw.githubusercontent.com/naogify/grib2png.sh/main/grib2uv2png.sh
 chmod +x grib2info.sh grib2uv2png.sh
 ```
 
