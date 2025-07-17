@@ -34,11 +34,16 @@ chmod +x grib2info.sh grib2uv2png.sh
 
 ### 2. GRIB2ファイルの中身を確認（**まずはここから！**）
 
-GRIB2ファイル（例: `sample.grib2`）の中に  
+以下を実行して [気象庁「全球数値予報モデルGPV (GSM全球域)」](https://www.data.jma.go.jp/developer/gpv_sample.html) のサンプルデータをダウンロードしてください。
+```
+curl https://gist.githubusercontent.com/naogify/89ca1d7d303ecf0ee7722218f04944a7/raw/8635c95e9242310d0969b7cbacbf00364e3c3ffb/download-jms-gpv-sample-data.sh | bash
+```
+
+GRIB2ファイル（例: `jms-sample.grib2`）の中に  
 **どんなパラメータが入っているか**を一覧で表示します。
 
 ```sh
-./grib2info.sh sample.grib2
+./grib2info.sh jms-sample.grib2
 ```
 
 **出力例:**
@@ -60,7 +65,7 @@ GRIB2ファイル（例: `sample.grib2`）の中に
 #### 基本コマンド
 
 ```sh
-./grib2uv2png.sh sample.grib2 \
+./grib2uv2png.sh jms-sample.grib2 \
   -o wind.png \
   -u ":UGRD:10 m above ground:" \
   -v ":VGRD:10 m above ground:"
@@ -75,7 +80,7 @@ GRIB2ファイル（例: `sample.grib2`）の中に
 `-scale 0 50` オプションでPNGへのマッピング範囲を変えられます。
 
 ```sh
-./grib2uv2png.sh sample.grib2 -o wind.png -u ":UGRD:10 m above ground:" -v ":VGRD:10 m above ground:" -scale 0 50
+./grib2uv2png.sh jms-sample.grib2 -o wind.png -u ":UGRD:10 m above ground:" -v ":VGRD:10 m above ground:" -scale 0 50
 ```
 - 出力画像のピクセル値は自動的に0〜255（PNG 8bit）にリスケールされます
 
